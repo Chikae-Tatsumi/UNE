@@ -3,9 +3,9 @@ library(Hmisc)
 library(Matrix)  
 
 # Import files
-setwd("~/R/Analysis/1_Test")
+setwd("~/R/Analysis/2_UNE")
 DESIGN <- read.csv("experimental_design.csv")
-setwd("~/R/Analysis/1_Test/ITS")
+setwd("~/R/Analysis/2_UNE/ITS")
 ASV.table <- read.table(file="rarefied_ASV_table.txt",header=T)
 ASV <- ASV.table [,1:(ncol(ASV.table)-7)]
 taxonomy <- ASV.table [,(ncol(ASV.table)-6):ncol(ASV.table)]
@@ -91,5 +91,5 @@ text(x=1,y=-1.1,paste("edge density = ", edge_density))
 title("XXXXXX") #Change
 
 # Save 
-dev.copy(pdf, file="~/R/Analysis/1_Test/ITS/Network.pdf", height=5, width=10)
+dev.copy(pdf, file="~/R/Analysis/2_UNE/ITS/Network_Urban_Edge.pdf", height=5, width=10)
 dev.off()
