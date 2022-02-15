@@ -113,15 +113,15 @@ ps.rarefied = rarefy_even_depth(ps_removed, rngseed=1,
 sample.size=min(sample_sums(ps_removed)), replace=F)
 otu_table.t<-t(ps.rarefied@otu_table)
 ps.t<-cbind(otu_table.t,ps.rarefied@tax_table)
-write.table(ps.t,  file="rarefied_ASV_table.txt")
+write.table(ps.t,  file="rarefied_ASV_table_all.txt")
 sum(as.numeric(ps.t[,1]))
 
 # prune
-ps_subset = prune_samples(sample_sums(ps_removed)>=3000, ps_removed)
+ps_subset = prune_samples(sample_sums(ps_removed)>=8000, ps_removed)
 ps.rarefied = rarefy_even_depth(ps_subset, rngseed=1, sample.size=min(sample_sums(ps_subset)), replace=F)
 otu_table.t<-t(ps.rarefied@otu_table)
 ps.t<-cbind(otu_table.t,ps.rarefied@tax_table)
-write.table(ps.t,  file="rarefied_ASV_table_over3000.txt")
+write.table(ps.t,  file="rarefied_ASV_table.txt")
 
 # Deseq2 (https://joey711.github.io/phyloseq-extensions/DESeq2.html)
 library("DESeq2"); packageVersion("DESeq2")
