@@ -29,7 +29,7 @@ env.arrows <- data.frame(subset (env.arrows, pval < 0.05))
 
 # PerMANOVA
 ASV.t <- t(ASV)
-adonis <- adonis(ASV.t ~ DFB*DFE,  data=DESIGN, permutations=10000)
+adonis <- adonis(ASV.t ~ DFB*DFE,  data=DESIGN, strata=DESIGN$Site, permutations=10000)
 Pval <- adonis[[1]][,6]
 if (adonis[[1]][1,6] > 0.05) {DFB.result <- ""
 } else if (adonis[[1]][1,6] > 0.01) {DFB.result <- "        Urbanization *      "
