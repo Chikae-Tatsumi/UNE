@@ -1,9 +1,3 @@
-library(tidyverse)
-library (dplyr)
-library(lme4)
-library(lmerTest)
-library(vegan)
-
 setwd("~/R/Analysis/2_UNE/ITS/FungalTrait")
 
 fungaltrait.table <- read.csv(file="fungaltrait.table.csv",row.names = 1)
