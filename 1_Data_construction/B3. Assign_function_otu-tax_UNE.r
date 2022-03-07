@@ -1,3 +1,4 @@
+# Written by Zoey Werbin
 # bin phylo groups for Delgado 
 
 setwd("~/R/Analysis/2_UNE/16S") # Added
