@@ -36,6 +36,4 @@ makeFunctionalPrediction(path_to_otu_table = "ASV.txt", path_to_reference_data =
 # note. normalize_pathways = FALSE will affiliate the rel. abundance of each KO to each pathway it belongs to. By setting it to true, the rel. abundance is equally distributed to all pathways it was assigned to.)
 
 #Step 4: Calculating (multi-)functional redundancy indices (experimental)
-calculateFunctionalRedundancy(path_to_otu_table = "ASV.txt", path_to_reference_data = "Tax4Fun2_ReferenceData_v2", path_to_temp_folder = "Tax4Fun2", database_mode = "Ref99NR", min_identity_to_reference = 0.97)
-
-# Don't forget to move the output file (Tax4Fun2) for your project file
+# calculateFunctionalRedundancy(path_to_otu_table = "ASV.txt", path_to_reference_data = "Tax4Fun2_ReferenceData_v2", path_to_temp_folder = "Tax4Fun2", database_mode = "Ref99NR", min_identity_to_reference = 0.97)
