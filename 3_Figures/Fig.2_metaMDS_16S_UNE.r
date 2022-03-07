@@ -13,48 +13,6 @@ ASV.table <- read.table(file="rarefied_ASV_table.txt",header=T)
 ASV <- ASV.table [,1:(ncol(ASV.table)-6)] # I have changed 7 into 6 because the table did not contain the Species column.
 taxonomy <- ASV.table [,(ncol(ASV.table)-5):ncol(ASV.table)] # Also, I have changed 6 into 5.
 percent <- ASV / mean(colSums(ASV)) *100
-# Remove "k__","p__", "c__"  before phylum name
-taxonomy <- data.frame(lapply(taxonomy, function(x){gsub(pattern="k__", replacement = "", x)}),stringsAsFactors = FALSE)
-taxonomy <- data.frame(lapply(taxonomy, function(x){gsub(pattern="p__", replacement = "", x)}),stringsAsFactors = FALSE)
-taxonomy <- data.frame(lapply(taxonomy, function(x){gsub(pattern="c__", replacement = "", x)}),stringsAsFactors = FALSE)
-
-# Make Kingdom table
-kingdom <- aggregate(percent, by=list(taxonomy$Kingdom),FUN = sum,na.rm=F) 
-row.names(kingdom)<-kingdom [,1]
-kingdom <- kingdom[,-1]
-kingdom <- data.frame(kingdom)
-kingdom.t <- t (kingdom)
-
-# Make >1% Phylum table
-phylum <- aggregate(percent, by=list(taxonomy$Phylum),FUN = sum,na.rm=F) 
-row.names(phylum)<-phylum[,1]
-phylum <- phylum[,-1]
-phylum <- data.frame(phylum)
-rowMeans <- rowMeans(phylum) 
-phylum <- cbind(phylum,rowMeans)
-major.phylum <- phylum[phylum[,"rowMeans"] > 5,] # Change
-major.phylum <- major.phylum[,-ncol(major.phylum)] 
-major.phylum.t <- t (major.phylum)
-
-# Make >1% Class (in >10% phylum) table
-percent.table <- cbind (percent, taxonomy)
-more.major.phylum <- phylum[phylum[,"rowMeans"] > 10,]
-more.major.phylum.t <- t(more.major.phylum)
-class.table <- data.frame()
-for (i in 1: ncol (more.major.phylum.t)){
-class.subset <- subset (percent.table, Phylum = colnames(more.major.phylum.t)[i])
-class.table <- rbind (class.table, class.subset)}
-class.ASV <- class.table[,1:(ncol(class.table)-6)] # I have changed 7 into 6 because the table did not contain the Species column.
-class.taxonomy <- class.table[,(ncol(class.table)-5):ncol(class.table)] # Also, I have changed 6 into 5.
-class <- aggregate(class.ASV, by=list(class.taxonomy$Class),FUN = sum,na.rm=F) 
-row.names(class)<-class[,1]
-class <- class[,-1]
-class <- data.frame(class)
-rowMeans <- rowMeans(class) 
-class <- cbind(class,rowMeans)
-major.class <- class[class[,"rowMeans"] > 5,] # Change
-major.class <- major.class[,-ncol(major.class)] 
-major.class.t <- t (major.class)
 
 # nmds
 percent.t <- t (percent)
