@@ -1,3 +1,4 @@
+# https://github.com/fjossandon/Tax4Fun2
 library(Tax4Fun2)
 library(seqinr)
 library(ape)
@@ -31,7 +32,6 @@ generateUserData(path_to_reference_data ="Tax4Fun2_ReferenceData_v2", path_to_us
 #1. Run the reference blast
 runRefBlast(path_to_otus = "seqs.fasta" , path_to_reference_data ="Tax4Fun2_ReferenceData_v2", path_to_temp_folder = "Tax4Fun2", database_mode = "Ref99NR", use_force = T, num_threads = 6)
 # 2) Predicting functional profiles
-# Remove the first row's # and the second row's # of "17_otu_97_table_taxonomy.txt" --> "17_otu_97_table_taxonomy_tax4fun.txt"
 makeFunctionalPrediction(path_to_otu_table = "ASV.txt", path_to_reference_data = "Tax4Fun2_ReferenceData_v2", path_to_temp_folder = "Tax4Fun2", database_mode = "Ref99NR", normalize_by_copy_number = TRUE, min_identity_to_reference = 0.97, normalize_pathways = FALSE)
 # note. normalize_pathways = FALSE will affiliate the rel. abundance of each KO to each pathway it belongs to. By setting it to true, the rel. abundance is equally distributed to all pathways it was assigned to.)
 
