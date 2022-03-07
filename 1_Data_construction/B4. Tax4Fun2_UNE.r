@@ -4,7 +4,7 @@ library(ape)
 
 setwd("~/R/Database/Tax4Fun2")
 ASV.table <- read.table(file="ASV_table_withMitoChlo.txt",header=T,row.names=1)
-ASV <- ASV.table [,1:(ncol(ASV.table)-6)] # I've changed 7--> 6
+ASV <- ASV.table [,1:(ncol(ASV.table)-6)]
 ASV <- cbind (rownames(ASV),ASV)
 ASV <- rbind (colnames(ASV),ASV)
 ASV[1,1] <- "ID"
