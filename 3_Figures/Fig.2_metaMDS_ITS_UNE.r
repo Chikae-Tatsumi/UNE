@@ -5,7 +5,6 @@ library(ggrepel)
 # Import files
 setwd("~/R/Analysis/2_UNE")
 DESIGN <- read.csv(file = "experimental_design.csv",header=T)
-METADATA <- read.csv(file = "metadata.csv",header=T)
 setwd("~/R/Analysis/2_UNE/ITS")
 ASV.table <- read.table(file="rarefied_ASV_table.txt",header=T)
 
