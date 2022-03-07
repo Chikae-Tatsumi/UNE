@@ -49,7 +49,7 @@ if (adonis[[1]][3,6] > 0.05) {DFBDFE.result <- ""
 rate = 0.2 # how many times shorter than acctual arrows
 ggplot()+
 geom_point(data=data, aes(x=MDS1,y=MDS2, color = DFB , size = DFE))+
-scale_colour_gradient(low="#f6766d",high="navy")+            # if you want to change the colors (gradient colors)  
+scale_colour_gradient(low="#f6766d",high="navy")+            
 geom_segment(data=env.arrows, aes(x = 0, y = 0, xend = (NMDS1*rate), yend = (NMDS2*rate)), arrow = arrow(length = unit(0.3,"cm")),color="black")+
 geom_text_repel(data=env.arrows, aes(x=(NMDS1*rate), y=(NMDS2*rate), label=rownames(env.arrows)),  size=6, color="black") +
 theme_classic()+
