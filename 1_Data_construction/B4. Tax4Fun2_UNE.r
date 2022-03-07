@@ -4,7 +4,7 @@ library(seqinr)
 library(ape)
 
 setwd("~/R/Database/Tax4Fun2")
-ASV.table <- read.table(file="ASV_table_withMitoChlo.txt",header=T,row.names=1)
+ASV.table <- read.table(file="rarefied_ASV_table.txt",header=T,row.names=1)
 ASV <- ASV.table [,1:(ncol(ASV.table)-6)]
 ASV <- cbind (rownames(ASV),ASV)
 ASV <- rbind (colnames(ASV),ASV)
@@ -12,10 +12,7 @@ ASV[1,1] <- "ID"
 rownames(ASV) <- NULL 
 colnames(ASV) <- NULL
 write.table(ASV, "ASV.txt",sep="\t",col.names = F, row.names = F,quote=F)
-taxonomy <- read.table(file="taxonomy.txt",header=T, row.names=1)
-tax <- subset(taxonomy,  (Family  != "Mitochondria"|is.na(Family) &
-                             Order   != "Chloroplast"|is.na(Order)  &
-                             Kingdom  != "Eukaryota" ))
+taxonomy <- read.table(file="taxonomy_rarefied.txt",header=T, row.names=1)
 write.fasta (sequences = as.list(rownames(tax)),names = rownames(ASV.table),file.out="seqs.fasta")
 dir.create("Tax4Fun2")
 
