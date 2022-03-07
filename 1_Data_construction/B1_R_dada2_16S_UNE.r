@@ -97,6 +97,11 @@ ps <- merge_phyloseq(ps, dna)
 taxa_names(ps) <- paste0("ASV", seq(ntaxa(ps)))
 ps
 
+#To output OTU table for Tax4Fun2
+otu_table.t<-t(ps@otu_table)
+ps.t<-cbind(otu_table.t,ps@tax_table)
+write.table(ps.t,  file="ASV_table_withMitoChlo.txt")
+
 # Remove 
 ps_removed = subset_taxa(ps,(
                              Family  != "Mitochondria"|is.na(Family) &
@@ -122,7 +127,6 @@ ps.rarefied = rarefy_even_depth(ps_subset, rngseed=1, sample.size=min(sample_sum
 otu_table.t<-t(ps.rarefied@otu_table)
 ps.t<-cbind(otu_table.t,ps.rarefied@tax_table)
 write.table(ps.t,  file="rarefied_ASV_table.txt")
-write.table(ps_subset@tax_table, file="taxonomy_rarefied.txt")
 
 # Deseq2 (https://joey711.github.io/phyloseq-extensions/DESeq2.html)
 library("DESeq2"); packageVersion("DESeq2")
