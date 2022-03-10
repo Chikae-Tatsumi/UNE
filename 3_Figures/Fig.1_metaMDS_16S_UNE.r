@@ -46,7 +46,7 @@ if (adonis[[1]][3,6] > 0.05) {DFBDFE.result <- ""
 }else {DFBDFE.result <- "        U×F ***    "}
 
 # ggplot
-rate = 0.5 # how many times shorter than acctual arrows
+rate = 0.3 # how many times shorter than acctual arrows
 ggplot()+
 geom_point(data=data, aes(x=MDS1,y=MDS2, color = DFB , size = DFE))+
 scale_colour_gradient(low="#f6766d",high="navy")+            
