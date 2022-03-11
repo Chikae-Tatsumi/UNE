@@ -6,7 +6,7 @@ setwd("~/R/Analysis/2_UNE")
 DESIGN <- read.csv("experimental_design.csv",header=T)
 setwd("~/R/Analysis/2_UNE/ITS/FungalTrait")
 
-fungaltrait.table <- read.csv(file="fungaltrait.table.csv",header=T,row.names = 1)
+fungaltrait.table <- read.csv(file="rarefied_fungaltrait.table.csv",header=T,row.names = 1)
 ASV <- fungaltrait.table [,1:(ncol(fungaltrait.table)-31)] 
 guild <- fungaltrait.table [,(ncol(fungaltrait.table)-24):ncol(fungaltrait.table)] 
 percent <- ASV / mean(colSums(ASV)) *100
