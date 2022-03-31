@@ -8,7 +8,7 @@ library(Biostrings)
 packageVersion("Biostrings")
 
 DATABASE = "~/R/Database/sh_general_release_dynamic_all_10.05.2021.fasta"
-setwd("~/R/Analysis/2_UNE/ITS_2018to2021")  ## CHANGE ME to the directory containing the fastq files.
+setwd("~/R/Analysis/2_UNE/ITS")  ## CHANGE ME to the directory containing the fastq files.
 
 #Identify primers
 FWD <- "GTGARTCATCGAATCTTTG"  ## fITS7
