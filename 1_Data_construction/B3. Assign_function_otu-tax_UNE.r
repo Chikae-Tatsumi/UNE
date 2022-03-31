@@ -1,4 +1,4 @@
-# Written by Zoey Werbin
+# See https://github.com/zoey-rw/NEFI_microbe/blob/master/16S/data_construction/1._create_tax_to_function_reference.r
 # bin phylo groups for Delgado 
 
 setwd("~/R/Analysis/2_UNE/16S") # Added
