@@ -15,6 +15,7 @@ DATABASE <- DATABASE[,-ncol(DATABASE)]
 colnames (merge.tidy) [2:ncol(merge.tidy)] <- colnames (DATABASE)
 rownames(merge.tidy) <- rownames (ASV.table)
 
+dir.create("FungalTrait")
 write.csv(merge.tidy, "FungalTrait/rarefied_fungaltrait.csv")
 
 fungaltrait.table <- cbind(ASV.table, merge.tidy[,-1])
