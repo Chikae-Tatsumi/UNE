@@ -1,7 +1,7 @@
 # Written by Zoey Werbin
 # create taxonomy to function reference dataset.
 # clear environment, load libraries
-#rm(list = ls())
+# rm(list = ls())
 
 setwd("~/R/Analysis/2_UNE/16S/function") # Added
 
