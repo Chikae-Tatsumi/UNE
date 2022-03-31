@@ -6,6 +6,7 @@ ASV.table <- read.table(file="rarefied_ASV_table.txt",header=T) # Added
 # % table # Added
 ASV <- ASV.table [,1:(ncol(ASV.table)-6)]  # I have changed 7 into 6 because the table did not contain the Species column. # Added
 taxonomy <- ASV.table [,(ncol(ASV.table)-5):ncol(ASV.table)]  # Also, I have changed 6 into 5. # Added
+dir.create("function")
 setwd("~/R/Analysis/2_UNE/16S/function") # Added
 
 
