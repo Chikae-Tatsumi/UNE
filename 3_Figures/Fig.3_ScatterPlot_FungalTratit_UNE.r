@@ -90,7 +90,7 @@ colnames (dung_saprotroph) [1] <- "dung_saprotroph"
 # Summarize
 Result <- cbind (ECM, Saprotroph, Pathotroph,Plant_pathogenic_capacity, Animal_parasite,soil_saprotroph, wood_saprotroph, litter_saprotroph, dung_saprotroph)
 write.csv(Result, "aggregated.fungaltrait.table.csv")
-colnames(Result) <- c("ECM fungi","Saprotroph fungi", "Pathotroph fungi", "Plant pathogenic capacity", "Animal parasite", "Soil saportroph fungi", "Wood saprotroph fungi", "Litter saprotroph fungi", "Dung saprotroph fungi")
+colnames(Result) <- c("ECM fungi","Saprotroph fungi", "Pathotroph fungi", "Plant-pathogenic fungi", "Animal-parasitic fungi", "Soil saportroph fungi", "Wood saprotroph fungi", "Litter saprotroph fungi", "Dung saprotroph fungi")
 
 data <- cbind (Result, DESIGN)
 data$Urban <- factor (data$Urban, levels=c("Urban","Rural"))
