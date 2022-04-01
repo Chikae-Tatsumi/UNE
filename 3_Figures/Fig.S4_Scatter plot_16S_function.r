@@ -2,6 +2,7 @@ library(tidyverse)
 library (dplyr)
 library(ggplot2)
 
+# Import files
 setwd("~/R/Analysis/2_UNE")
 DESIGN <- read.csv("experimental_design.csv",header=T)
 DESIGN <- na.omit(DESIGN)
@@ -12,6 +13,7 @@ ASV <- function.table [,1:(ncol(function.table)-19)]
 fgs <- function.table [,(ncol(function.table)-12):ncol(function.table)] 
 percent <- ASV / mean(colSums(ASV)) *100
 
+name <- colnames(fgs) 
 colnames(fgs) <- c("Cellulolytic bacteria", "Assimiratory nitrite reducing bacteria", "Dissimiratory nitrite reducing bacteria", 
 "Assimiratory nitrate reducing bacteria", "N fixing bacteria", "Dissimiratory nitrate reducing bacteria",
 "Nitrifying bacteria", "Denitrifying bacteria", "Chitinolytic bacteria", "Lignolytic bacteria",              
@@ -42,6 +44,7 @@ if (Pval[3] > 0.05) {DFBDFE.result <- ""
 }else if (Pval[3] > 0.001) {DFBDFE.result <- "        U×F **     "
 }else {DFBDFE.result <- "        U×F ***    "}
 
+# ggplot
 ggplot(data)+
 geom_point(aes(x=DFE, y=data[,1], color=Urban),position=position_jitter( width=2, height=0))+ 
 geom_smooth(method="lm", aes(x=DFE, y=data[,1], group=Urban, color=Urban))+  
@@ -53,10 +56,10 @@ annotate("text", x=-Inf, y=Inf, hjust=0, vjust =2, label=DFB.result, size=5) +
 annotate("text", x=-Inf, y=Inf, hjust=0, vjust =4, label=DFE.result, size=5) +
 annotate("text", x=-Inf, y=Inf, hjust=0, vjust =6, label=DFBDFE.result, size=5) 
 
+# Save
 ggsave(paste(colnames(fgs)[i],".png"),width = 5, height = 4)
 
 Result <- cbind (Result, aggregated.t)
 Result <- Result [,-ncol(Result)]}
-
-colnames(Result) <- colnames(fgs)
+colnames(Result) <- name
 write.csv (Result, "aggregated.function.table.csv")
