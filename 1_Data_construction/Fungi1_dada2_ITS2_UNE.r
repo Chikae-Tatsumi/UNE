@@ -109,10 +109,7 @@ dadaFs <- dada(derepFs, err = errF, multithread = TRUE)
 dadaRs <- dada(derepRs, err = errR, multithread = TRUE)
 
 #Merge paired reads
-mergers <- mergePairs(dadaFs, derepFs, dadaRs, derepRs, verbose=TRUE, 
-# returnRejects = TRUE
-, maxMismatch=5, minOverlap=10
-) # Changed!!!
+mergers <- mergePairs(dadaFs, derepFs, dadaRs, derepRs, verbose=TRUE) 
 
 #Construct Sequence Table
 seqtab <- makeSequenceTable(mergers)
@@ -120,16 +117,7 @@ dim(seqtab)
 
 #Remove chimeras
 seqtab.nochim <- removeBimeraDenovo(seqtab, 
-method="consensus"
-#method="pooled"
-, minSampleFraction=0.9
-, ignoreNNegatives = 2
-, minFoldParentOverAbundance = 1.5
-, minParentAbundance = 2
-, allowOneOff = TRUE
-, minOneOffParentDistance = 4
-, maxShift=16
-, multithread=TRUE, verbose=TRUE) # Changed!!!
+method="consensus", multithread=TRUE, verbose=TRUE) 
 table(nchar(getSequences(seqtab.nochim)))
 sum(seqtab.nochim)/sum(seqtab)
 
@@ -146,9 +134,7 @@ head(track)
 write.table(track,file="track.txt")
 
 #Assign taxonomy
-taxa <- assignTaxonomy(seqtab.nochim, DATABASE, multithread = TRUE, tryRC = TRUE
-#, minBoot=30
-) #Changed!!!
+taxa <- assignTaxonomy(seqtab.nochim, DATABASE, multithread = TRUE, tryRC = TRUE) 
 taxa.print <- taxa  # Removing sequence rownames for display only
 rownames(taxa.print) <- NULL
 head(taxa.print)
