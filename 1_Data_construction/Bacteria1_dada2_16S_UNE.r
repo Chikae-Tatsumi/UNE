@@ -118,22 +118,8 @@ ps.rarefied = rarefy_even_depth(ps_removed, rngseed=1,
 sample.size=min(sample_sums(ps_removed)), replace=F)
 otu_table.t<-t(ps.rarefied@otu_table)
 ps.t<-cbind(otu_table.t,ps.rarefied@tax_table)
-write.table(ps.t,  file="rarefied_ASV_table_all.txt")
-sum(as.numeric(ps.t[,1]))
-
-# prune
-ps_subset = prune_samples(sample_sums(ps_removed)>=8000, ps_removed)
-ps.rarefied = rarefy_even_depth(ps_subset, rngseed=1, sample.size=min(sample_sums(ps_subset)), replace=F)
-otu_table.t<-t(ps.rarefied@otu_table)
-ps.t<-cbind(otu_table.t,ps.rarefied@tax_table)
 write.table(ps.t,  file="rarefied_ASV_table.txt")
-
-# Deseq2 (https://joey711.github.io/phyloseq-extensions/DESeq2.html)
-library("DESeq2"); packageVersion("DESeq2")
-design <- read.csv("~/R/Analysis/2_UNE/experimental_design.csv",header=T)
-rownames(design) <- rownames(seqtab.nochim)
-ps.deseq <- phyloseq(otu_table(seqtab.nochim, taxa_are_rows=FALSE), 
-                         tax_table(taxa), sample_data(design))
+sum(as.numeric(ps.t[,1]))
 
 # Deseq2 (https://joey711.github.io/phyloseq-extensions/DESeq2.html)
 library("DESeq2"); packageVersion("DESeq2")
