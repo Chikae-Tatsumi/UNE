@@ -175,12 +175,6 @@ rownames(design) <- rownames(seqtab.nochim)
 ps.deseq <- phyloseq(otu_table(seqtab.nochim, taxa_are_rows=FALSE), 
                          tax_table(taxa), sample_data(design))
                          
-dna <- Biostrings::DNAStringSet(taxa_names(ps.deseq))
-names(dna) <- taxa_names(ps.deseq)
-ps.deseq <- merge_phyloseq(ps.deseq, dna)
-taxa_names(ps) <- paste0("ASV", seq(ntaxa(ps.deseq)))
-ps.deseq        
-
 # DESeq2 conversion and call (see https://bioconductor.org/packages/devel/bioc/vignettes/phyloseq/inst/doc/phyloseq-mixture-models.html)
 diagdds = phyloseq_to_deseq2(ps.deseq, ~DFB*DFE)
 gm_mean = function(x, na.rm=TRUE){
@@ -211,10 +205,20 @@ diagvst = diagvst-min(diagvst)
 
 otu_table(ps.deseq) <- otu_table(diagvst, taxa_are_rows = TRUE)
 
+#store the DNA sequences of our ASVs in the refseq slot of the phyloseq object
+
+dna <- Biostrings::DNAStringSet(taxa_names(ps.deseq))
+names(dna) <- taxa_names(ps.deseq)
+ps.deseq <- merge_phyloseq(ps.deseq, dna)
+taxa_names(ps.deseq) <- paste0("ASV", seq(ntaxa(ps.deseq)))
+ps.deseq
+
+# Remove 
+ps.deseq = subset_taxa(ps.deseq,(Kingdom  == "k__Fungi" ))
+
 # Save
-otu_table<-diagvst
-ps.t<-cbind(otu_table,ps.deseq@tax_table)
-write.table(ps.t,  file="deseq_ASV_table.txt")
+ps<-cbind(ps.deseq@otu_table,ps.deseq@tax_table)
+write.table(ps,  file="deseq_ASV_table.txt")
 
 #ADONIS for DESeq
 library (vegan)
