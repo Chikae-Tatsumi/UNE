@@ -21,7 +21,7 @@ Pval <-anova[,5]
 Bind <- c(Fval[1], Pval[1], Fval[2], Pval[2], Fval[4], Pval[4], Fval[3], Pval[3])
 Results <- rbind(Results, Bind)}
 colnames(Results) <- c(paste(NAME1,".F",sep=""),paste(NAME1,".P",sep=""),paste(NAME2,".F",sep=""),paste(NAME2,".P",sep=""),paste(NAME1,"*",NAME2,".F",sep=""),paste(NAME1,"*",NAME2,".P",sep=""),paste(NAME3,".F",sep=""),paste(NAME3,".P",sep=""))
-rownames(Results) <- colnames(METADATA)
+rownames(Results) <- colnames(objective)
 
 # P.val --> Asterisk
 Results.asterisk <- Results
