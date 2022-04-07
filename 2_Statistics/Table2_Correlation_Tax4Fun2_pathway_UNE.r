@@ -6,7 +6,7 @@ library(ggrepel)
 setwd("~/R/Analysis/2_UNE")
 DESIGN <- read.csv(file = "experimental_design.csv",header=T)
 setwd("~/R/Analysis/2_UNE/16s/Tax4Fun2")
-stress.16S <- read.csv (file = "pathway_prediction.csv",row.names=1,header=T) 
+stress.16S <- read.csv (file = "pathway_prediction.csv",row.names=1,header=T,sep="\t",quote = "") 
 data <- t(stress.16S[,1:(ncol(stress.16S)-3)])
 
 # cor.test
