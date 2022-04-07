@@ -91,7 +91,7 @@ data$Urban <- factor (data$Urban, levels=c("Urban","Rural"))
 # ggplot
 ggplot (data,  mapping=aes(x=DFE, y=Abundance, fill=Example))+ 
 geom_bar(aes(), stat="identity", position="stack",color="black")+
-scale_fill_manual(values = c("gray","#8900ae","#7CAE00","#e9f7f8","#c3eaeb","#81d5d7","#00BFC4","#1d7b7e","#135355","#1a3d3e","#ffbcb3","#F8766D","#753c37"))+  # if you want to change the colors
+scale_fill_manual(values = c("gray","#8900ae","#7CAE00","#e9f7f8","#c3eaeb","#81d5d7","#00BFC4","#1d7b7e","#135355","#ffbcb3","#F8766D","#753c37"))+  
 theme_classic()+
 theme(text=element_text(size=12,color="black"),axis.text=element_text(size=12,color="black"))+
 labs (x="Distance from edge (m)",y="Abundance (%)",fill="")+
