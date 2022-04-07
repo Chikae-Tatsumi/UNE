@@ -5,7 +5,7 @@ library(ape)
 
 setwd("~/R/Database/Tax4Fun2")
 ASV.table <- read.table(file="ASV_table_withMitoChlo.txt",header=T,row.names=1)
-ASV <- ASV.table [,1:(ncol(ASV.table)-6)] # I've changed 7--> 6
+ASV <- ASV.table [,1:(ncol(ASV.table)-6)]
 ASV <- cbind (rownames(ASV),ASV)
 ASV <- rbind (colnames(ASV),ASV)
 ASV[1,1] <- "ID"
@@ -37,3 +37,7 @@ makeFunctionalPrediction(path_to_otu_table = "ASV.txt", path_to_reference_data =
 
 #Step 4: Calculating (multi-)functional redundancy indices (experimental)
 # calculateFunctionalRedundancy(path_to_otu_table = "ASV.txt", path_to_reference_data = "Tax4Fun2_ReferenceData_v2", path_to_temp_folder = "Tax4Fun2", database_mode = "Ref99NR", min_identity_to_reference = 0.97)
+
+dir.create("~/R/Analysis/2_UNE/16S/Tax4Fun2")
+file.copy("~/R/Database/Tax4Fun2/Tax4Fun2/pathway_prediction.txt", "~/R/Analysis/2_UNE/16S/Tax4Fun2")
+file.copy("~/R/Database/Tax4Fun2/Tax4Fun2/functional_prediction.txt", "~/R/Analysis/2_UNE/16S/Tax4Fun2")
