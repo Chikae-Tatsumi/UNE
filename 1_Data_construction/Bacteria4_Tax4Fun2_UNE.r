@@ -3,6 +3,9 @@ library(Tax4Fun2)
 library(seqinr)
 library(ape)
 
+file.copy("~/R/Analysis/2_UNE/16S/ASV_table_withMitoChlo.txt", "~/R/Database/Tax4Fun2")
+file.copy("~/R/Analysis/2_UNE/16S/taxonomy.txt", "~/R/Database/Tax4Fun2")
+
 setwd("~/R/Database/Tax4Fun2")
 ASV.table <- read.table(file="ASV_table_withMitoChlo.txt",header=T,row.names=1)
 ASV <- ASV.table [,1:(ncol(ASV.table)-6)]
