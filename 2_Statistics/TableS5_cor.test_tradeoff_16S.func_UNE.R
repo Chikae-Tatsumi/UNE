@@ -5,7 +5,7 @@ setwd("~/R/Analysis/2_UNE/16S")
 Pros <- read.csv(file = "function/aggregated.function.table.csv",header=T, row.names=1)
 
 # Prepare Cons
-pathway <- read.csv(file = "Tax4Fun2/pathway_prediction.csv",header=T, row.names=1)
+pathway <- read.table(file = "Tax4Fun2/pathway_prediction.txt",row.names=1,header=T,sep="\t",dec = ".",quote="")
 ASV <- pathway[,1:(ncol(pathway)-3)]
 description <- pathway[,(ncol(pathway)-2):ncol(pathway)]
 ASV.t <- t(ASV)
