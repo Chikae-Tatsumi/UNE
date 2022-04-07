@@ -8,8 +8,8 @@ setwd("~/R/Analysis/2_UNE")
 DESIGN <- read.csv("experimental_design.csv",header=T)
 setwd("~/R/Analysis/2_UNE/ITS/FungalTrait")
 ECM.table<- read.csv(file="rarefied_ECM_table_FungalTrait.csv",header=T,row.names = 1)
-ASV.ECM <- ECM.table [,1:(ncol(ECM.table)-7)] 
-guild.ECM <- ECM.table [,(ncol(ECM.table)-6):ncol(ECM.table)] 
+ASV.ECM <- ECM.table [,1:(ncol(ECM.table)-31)] 
+guild.ECM <- ECM.table [,(ncol(ECM.table)-24):ncol(ECM.table)] 
 ASV.t <- t(ASV.ECM)
 
 # Diversity index calculation
