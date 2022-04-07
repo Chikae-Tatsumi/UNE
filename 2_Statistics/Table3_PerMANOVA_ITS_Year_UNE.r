@@ -61,7 +61,7 @@ sink()
 
 
 ###### For Interior ######
-bind <- cbind (percent.t,DESIGN)
+bind <- cbind (ASV.t,DESIGN)
 subset <- subset(bind, bind$Edge=="Interior") 
 subset.ASV <- subset[,1:(ncol(subset)-ncol(DESIGN))]
 DESIGN.subset <- subset[,(ncol(subset)-ncol(DESIGN)+1):ncol(subset)]
