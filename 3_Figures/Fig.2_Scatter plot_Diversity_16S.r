@@ -39,10 +39,9 @@ if (Pval[3] > 0.05) {DFBDFE.result <- ""
 ggplot(data)+
 geom_point(aes(x=DFE, y=shannon, color=Urban),position=position_jitter( width=2, height=0))+
 geom_smooth(method="lm", aes(x=DFE, y=shannon, group=Urban, color=Urban))+
-# scale_fill_manual(values = c("#C77CFF","#7CAE00","#00BFC4","#F8766D"))+  # if you want to change the colors
 theme_classic()+
 theme(text=element_text(size=14,color="black"),axis.text=element_text(size=12,color="black"))+
-labs (y="Shannon's diversity index",x="Distance from edge (m)") + # if you want to change the axis titles
+labs (y="Shannon's diversity index",x="Distance from edge (m)") +
 annotate("text", x=-Inf, y=Inf, hjust=0, vjust =2, label=DFB.result, size=5) +
 annotate("text", x=-Inf, y=Inf, hjust=0, vjust =4, label=DFE.result, size=5) +
 annotate("text", x=-Inf, y=Inf, hjust=0, vjust =6, label=DFBDFE.result, size=5) 
