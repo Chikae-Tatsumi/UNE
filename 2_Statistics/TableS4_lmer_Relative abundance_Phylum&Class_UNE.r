@@ -6,7 +6,7 @@ DESIGN <- read.csv("experimental_design.csv")
 setwd("~/R/Analysis/2_UNE/ITS") 
 objective <- read.csv("aggregated.phylum.class.table.csv", header=T, row.names=1)
 Basidomycota <- rowSums(objective[1:3])
-Ascomycota <- rowSums(objective[4:10])
+Ascomycota <- rowSums(objective[4:9])
 objective <- cbind(objective, Basidomycota, Ascomycota)
 
 NAME1 <- "Urbanization"
