@@ -26,6 +26,7 @@ agrregated <- cbind(agrregated,rowMeans)
 # >2% abund 
 majors <- agrregated[agrregated[,"rowMeans"] > 2,]
 majors <- majors[order(majors$rowMeans,decreasing = T),]
+selected <- majors
 selected <- selected[,-ncol(selected)] 
 
 # Make dataset
