@@ -2,8 +2,9 @@ library (lme4)
 library (lmerTest)
 
 # Import files
-setwd("~/R/Analysis/2_UNE/qPCR")
+setwd("~/R/Analysis/2_UNE")
 DESIGN <- read.csv("experimental_design.csv",header=T)
+setwd("~/R/Analysis/2_UNE/qPCR")
 objective <- read.csv("qPCR.calc.result.UNE.csv",header=T, row.names=1) 
 
 NAME1 <- "Urbanization"
