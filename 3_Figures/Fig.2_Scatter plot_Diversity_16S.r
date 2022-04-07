@@ -9,7 +9,7 @@ DESIGN <- na.omit (DESIGN)
 setwd("~/R/Analysis/2_UNE/16S")
 ASV.table <- read.table(file="rarefied_ASV_table.txt",header=T)
 
-ASV <- ASV.table [,1:(ncol(ASV.table)-6)] # I have changed 7 into 6 because the table did not contain the Species column.
+ASV <- ASV.table [,1:(ncol(ASV.table)-6)] 
 ASV.t <- t(ASV)
 shannon <- diversity(ASV.t, index="shannon",base=2)
 simpson <- diversity(ASV.t, index="simpson")
