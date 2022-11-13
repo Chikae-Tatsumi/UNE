@@ -101,7 +101,7 @@ ps <- merge_phyloseq(ps, dna)
 taxa_names(ps) <- paste0("ASV", seq(ntaxa(ps)))
 ps
 
-#To output OTU table for Tax4Fun2
+#To output OTU table 1
 otu_table.t<-t(ps@otu_table)
 ps.t<-cbind(otu_table.t,ps@tax_table)
 write.table(ps.t,  file="ASV_table_withMitoChlo.txt")
@@ -112,11 +112,11 @@ ps_removed = subset_taxa(ps,(
                              Class   != "Chloroplast"|is.na(Class)  &
                              Kingdom  != "Eukaryota" ))
                              
-#To output OTU table
+#To output OTU table 2
 otu_table.t<-t(ps_removed@otu_table)
 ps.t<-cbind(otu_table.t,ps_removed@tax_table)
 write.table(ps.t,  file="ASV_table.txt")
-write.table(ps_removed@tax_table, file="seqtab.nochim.txt")
+write.table(ps_removed@tax_table, file="taxonomy.txt")
 
 # Rarefication
 ps.rarefied = rarefy_even_depth(ps_removed, rngseed=1,
