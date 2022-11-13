@@ -81,7 +81,7 @@ write.table(track,file="track.txt")
 #Assign taxonomy
 #Install "silva_nr_v132_train_set.fa.gz" from: https://zenodo.org/record/1172783#.XUmvQ_ZFw2w
 #Other taxonomic reference database: http://benjjneb.github.io/dada2/training.html
-taxa <- assignTaxonomy(seqtab.nochim,DATABASE, multithread=TRUE)
+taxa <- assignTaxonomy(seqtab.nochim,DATABASE, multithread=TRUE,tryRC=TRUE)
 taxa.print <- taxa # Removing sequence rownames for display only
 rownames(taxa.print) <- NULL
 head(taxa.print)
