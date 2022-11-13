@@ -32,19 +32,29 @@ filtRs <- file.path(getwd(), "filtered", paste0(sample.names, "_R_filt.fastq.gz"
 names(filtFs) <- sample.names
 names(filtRs) <- sample.names
 
-out <- filterAndTrim(fnFs, filtFs, fnRs, filtRs, truncLen=c(240,160),
-              maxN=0, maxEE=c(2,2), truncQ=2, rm.phix=TRUE, 
-              compress=TRUE, multithread=FALSE, trimLeft=c(20,19)) # On Windows set multithread=FALSE
+out <- filterAndTrim(fnFs, filtFs, fnRs, filtRs, truncLen=c(215,215),
+                     maxN=0, maxEE=c(2,2), truncQ=2, rm.phix=TRUE, 
+                     compress=TRUE, multithread=FALSE, trimRight=c(32,31)) # On Windows set multithread=FALSE
+# R1 contains RC of 806r primer (20) + Linker (2) + Pad (10)
+# R2 contains RC of 806r primer (19) + Linker (2) + Pad (10)
 head(out)
+
 # If too few reads are passing the filter, consider relaxing maxEE, perhaps especially on the reverse reads (eg. maxEE=c(2,5)), and reducing the truncLen to remove low quality tails
 # Learn the Error Rates
 errF <- learnErrors(filtFs, multithread=TRUE)
 errR <- learnErrors(filtRs, multithread=TRUE)
 plotErrors(errF, nominalQ=TRUE) #plot
 
+# Dereplication
+derepFs <- derepFastq(filtFs, verbose=TRUE)
+derepRs <- derepFastq(filtRs, verbose=TRUE)
+# Name the derep-class objects by the sample names
+names(derepFs) <- sample.names
+names(derepRs) <- sample.names
+
 # Sample Inference
-dadaFs <- dada(filtFs, err=errF, multithread=TRUE)
-dadaRs <- dada(filtRs, err=errR, multithread=TRUE)
+dadaFs <- dada(derepFs, err=errF, multithread=TRUE)
+dadaRs <- dada(derepRs, err=errR, multithread=TRUE
 
 # Merge paired reads
  mergers <- mergePairs(dadaFs, filtFs, dadaRs, filtRs, verbose=TRUE)
