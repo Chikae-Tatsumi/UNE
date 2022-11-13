@@ -87,14 +87,8 @@ rownames(taxa.print) <- NULL
 head(taxa.print)
 #If your reads do not seem to be appropriately assigned, for example lots of your bacterial 16S sequences are being assigned as Eukaryota NA NA NA NA NA, your reads may be in the opposite orientation as the reference database. Tell dada2 to try the reverse-complement orientation with assignTaxonomy(..., tryRC=TRUE) and see if this fixes the assignments. 
 
-write.table(taxa,file="taxonomy.txt")
-write.table(seqtab.nochim,file="seqtabnochim.txt")
-
-taxa.print <- taxa  # Removing sequence rownames for display only
-rownames(taxa.print) <- NULL
-head(taxa.print)
-write.table(taxa, file="taxonomy.txt")
-write.table(seqtab.nochim, file="seqtabnochim.txt")
+write.table(taxa,file="taxonomy_withMitoChlo.txt")
+write.table(seqtab.nochim,file="seqtabnochim_withMitoChlo.txt")
 
 samples.out<-rownames(seqtab.nochim)
 ps <- phyloseq(otu_table(seqtab.nochim, taxa_are_rows=FALSE), 
@@ -122,6 +116,7 @@ ps_removed = subset_taxa(ps,(
 otu_table.t<-t(ps_removed@otu_table)
 ps.t<-cbind(otu_table.t,ps_removed@tax_table)
 write.table(ps.t,  file="ASV_table.txt")
+write.table(ps_removed@tax_table, file="seqtab.nochim.txt")
 
 # Rarefication
 ps.rarefied = rarefy_even_depth(ps_removed, rngseed=1,
