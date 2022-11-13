@@ -20,6 +20,7 @@ tax <- subset(taxonomy,  (Family  != "Mitochondria"|is.na(Family) &
                              Order   != "Chloroplast"|is.na(Order)  &
                              Kingdom  != "Eukaryota" ))
 write.fasta (sequences = as.list(rownames(tax)),names = rownames(ASV.table),file.out="seqs.fasta")
+file.copy("~/R/Database/Tax4Fun2/seqs.fasta", "~/R/Analysis/2_UNE/16S",overwrite=TRUE)
 dir.create("Tax4Fun2")
 
 #Step 2: Generate your own reference datasets
