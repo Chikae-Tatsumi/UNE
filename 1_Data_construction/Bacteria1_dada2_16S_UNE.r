@@ -118,7 +118,7 @@ names(derepRs) <- sample.names
 
 # Sample Inference
 dadaFs <- dada(derepFs, err=errF, multithread=TRUE)
-dadaRs <- dada(derepRs, err=errR, multithread=TRUE
+dadaRs <- dada(derepRs, err=errR, multithread=TRUE)
 
 # Merge paired reads
  mergers <- mergePairs(dadaFs, filtFs, dadaRs, filtRs, verbose=TRUE)
