@@ -18,8 +18,8 @@ fnFs <- sort(list.files(getwd(), pattern="_R1_001.fastq", full.names = TRUE))
 fnRs <- sort(list.files(getwd(), pattern="_R2_001.fastq", full.names = TRUE))
 
 #Identify primers
-FWD <- "GTGARTCATCGAATCTTTG"  ## 515f
-REV <- "TCCTCCGCTTATTGATATGC"  ## 806r
+FWD <- "GTGCCAGCMGCCGCGGTAA"  ## 515f
+REV <- "GGACTACHVGGGTWTCTAAT"  ## 806r
 
 allOrients <- function(primer) {
     # Create all orientations of the input sequence
