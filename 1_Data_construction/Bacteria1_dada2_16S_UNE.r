@@ -7,7 +7,7 @@ library(ShortRead); packageVersion("ShortRead")
 library(phyloseq); packageVersion("phyloseq")
 library(Biostrings); packageVersion("Biostrings")
 
-DATABASE = "~/R/Database/tax/silva_nr_v138_train_set.fa.gz"
+DATABASE = "~/R/Database/silva_nr_v138_train_set.fa.gz"
 setwd("~/R/Analysis/2_UNE/16S")  ## CHANGE ME to the directory containing the fastq files.
 list.files()
 # a set of Illumina-sequenced paired-end fastq files that have been split by sample and from which the barcodes/adapters have already been removed
