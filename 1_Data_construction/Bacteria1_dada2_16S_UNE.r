@@ -174,7 +174,8 @@ write.table(ps.t,  file="ASV_table_withMitoChlo.txt")
 ps_removed = subset_taxa(ps,(
                              Family  != "Mitochondria"|is.na(Family) &
                              Class   != "Chloroplast"|is.na(Class)  &
-                             Kingdom  != "Eukaryota" ))
+                             Kingdom  != "Eukaryota" &
+                             Kingdom  != "Archaea" ))
                              
 #To output OTU table 2
 otu_table.t<-t(ps_removed@otu_table)
