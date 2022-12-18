@@ -182,6 +182,7 @@ otu_table.t<-t(ps_removed@otu_table)
 ps.t<-cbind(otu_table.t,ps_removed@tax_table)
 write.table(ps.t,  file="ASV_table.txt")
 write.table(ps_removed@tax_table, file="taxonomy.txt")
+write.table(ps_removed@refseq, file="refseq.txt")
 
 # Rarefication
 ps.rarefied = rarefy_even_depth(ps_removed, rngseed=1,
