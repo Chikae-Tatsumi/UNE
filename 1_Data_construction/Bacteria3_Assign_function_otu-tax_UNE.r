@@ -1,11 +1,11 @@
-# See https://github.com/zoey-rw/NEFI_microbe/blob/master/16S/data_construction/1._create_tax_to_function_reference.r
+# Copied from https://github.com/zoey-rw/NEFI_microbe/blob/master/16S/data_construction/1._create_tax_to_function_reference.r
 # bin phylo groups for Delgado 
 
 setwd("~/R/Analysis/2_UNE/16S") # Added
 ASV.table <- read.table(file="rarefied_ASV_table.txt",header=T) # Added
 # % table # Added
-ASV <- ASV.table [,1:(ncol(ASV.table)-6)]  # I have changed 7 into 6 because the table did not contain the Species column. # Added
-taxonomy <- ASV.table [,(ncol(ASV.table)-5):ncol(ASV.table)]  # Also, I have changed 6 into 5. # Added
+ASV <- ASV.table [,1:(ncol(ASV.table)-6)] # Added
+taxonomy <- ASV.table [,(ncol(ASV.table)-5):ncol(ASV.table)]  # Added
 dir.create("function")
 setwd("~/R/Analysis/2_UNE/16S/function") # Added
 
