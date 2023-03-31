@@ -1,6 +1,5 @@
 library(tidyverse)
 library (dplyr)
-library(ggplot2)
 
 # Import files
 setwd("~/R/Analysis/2_UNE")
