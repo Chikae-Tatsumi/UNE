@@ -1,7 +1,4 @@
 library(vegan)
-library(ggplot2)
-library(lme4)
-library(lmerTest)
 
 # Import files
 setwd("~/R/Analysis/2_UNE")
