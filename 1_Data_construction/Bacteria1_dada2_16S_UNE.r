@@ -176,7 +176,7 @@ otu_table.t<-t(ps_removed_2@otu_table)
 ps.t<-cbind(otu_table.t,ps_removed_2@tax_table)
 write.table(ps.t,  file="ASV_table.txt")
 write.table(ps_removed_2@tax_table, file="taxonomy.txt")
-write.table(ps_removed_2@refseq, file="refseq.txt")
+write.table(ps_removed_2@refseq, file="seq.txt")
 
 # Rarefication
 ps.rarefied = rarefy_even_depth(ps_removed_2, rngseed=1,
@@ -184,6 +184,7 @@ sample.size=min(sample_sums(ps_removed_2)), replace=F)
 otu_table.t<-t(ps.rarefied@otu_table)
 ps.t<-cbind(otu_table.t,ps.rarefied@tax_table)
 write.table(ps.t,  file="rarefied_ASV_table.txt")
+write.table(ps.rarefied@refseq, file="rarefied_seq.txt")
 sum(as.numeric(ps.t[,1])) 
 
 # Deseq2 (https://joey711.github.io/phyloseq-extensions/DESeq2.html)
