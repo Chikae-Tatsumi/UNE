@@ -1,5 +1,5 @@
-#DADA2 Pipeline Tutorial (1.12)
-#See http://benjjneb.github.io/dada2/tutorial.html
+# DADA2 Pipeline Tutorial (1.8)
+# See https://benjjneb.github.io/dada2/tutorial_1_8.html
 
 #Getting ready
 library(dada2); packageVersion("dada2")
@@ -10,7 +10,6 @@ library(Biostrings); packageVersion("Biostrings")
 DATABASE = "~/R/Database/silva_nr_v138_train_set.fa.gz"
 setwd("~/R/Analysis/2_UNE/16S")  ## CHANGE ME to the directory containing the fastq files.
 list.files()
-# a set of Illumina-sequenced paired-end fastq files that have been split by sample and from which the barcodes/adapters have already been removed
 
 # Define which is forward fastq and reverse fastq
 # Forward and reverse fastq filenames have format: SAMPLENAME_R1_001.fastq and SAMPLENAME_R2_001.fastq
@@ -103,7 +102,6 @@ head(out)
 plotQualityProfile(filtFs[1:2])
 plotQualityProfile(filtRs[1:2])
 
-# If too few reads are passing the filter, consider relaxing maxEE, perhaps especially on the reverse reads (eg. maxEE=c(2,5)), and reducing the truncLen to remove low quality tails
 # Learn the Error Rates
 errF <- learnErrors(filtFs, multithread=TRUE)
 errR <- learnErrors(filtRs, multithread=TRUE)
@@ -142,14 +140,12 @@ rownames(track) <- sample.names
 head(track)
 write.table(track,file="track.txt")
 
-#Assign taxonomy
-#Install "silva_nr_v138_train_set.fa.gz" from: https://zenodo.org/record/1172783#.XUmvQ_ZFw2w
-#Other taxonomic reference database: http://benjjneb.github.io/dada2/training.html
+# Assign taxonomy
+# Install "silva_nr_v138_train_set.fa.gz" from: https://zenodo.org/record/1172783#.XUmvQ_ZFw2w
 taxa <- assignTaxonomy(seqtab.nochim,DATABASE, multithread=TRUE,tryRC=TRUE)
 taxa.print <- taxa # Removing sequence rownames for display only
 rownames(taxa.print) <- NULL
 head(taxa.print)
-#If your reads do not seem to be appropriately assigned, for example lots of your bacterial 16S sequences are being assigned as Eukaryota NA NA NA NA NA, your reads may be in the opposite orientation as the reference database. Tell dada2 to try the reverse-complement orientation with assignTaxonomy(..., tryRC=TRUE) and see if this fixes the assignments. 
 
 write.table(taxa,file="taxonomy_withMitoChlo.txt")
 write.table(seqtab.nochim,file="seqtabnochim_withMitoChlo.txt")
@@ -165,7 +161,7 @@ ps <- merge_phyloseq(ps, dna)
 taxa_names(ps) <- paste0("ASV", seq(ntaxa(ps)))
 ps
 
-#To output OTU table 1
+#To output ASV table that still have non-bacterial sequences
 otu_table.t<-t(ps@otu_table)
 ps.t<-cbind(otu_table.t,ps@tax_table)
 write.table(ps.t,  file="ASV_table_withMitoChlo.txt")
@@ -175,7 +171,7 @@ ps_removed_1 = subset_taxa(ps,(Kingdom=="Bacteria"))
 ps_removed_2 = subset_taxa(ps_removed_1,(Family  != "Mitochondria"|is.na(Family) &
                              Order   != "Chloroplast"|is.na(Order))
                              
-#To output OTU table 2
+# To output ASV table
 otu_table.t<-t(ps_removed_2@otu_table)
 ps.t<-cbind(otu_table.t,ps_removed_2@tax_table)
 write.table(ps.t,  file="ASV_table.txt")
@@ -188,7 +184,7 @@ sample.size=min(sample_sums(ps_removed_2)), replace=F)
 otu_table.t<-t(ps.rarefied@otu_table)
 ps.t<-cbind(otu_table.t,ps.rarefied@tax_table)
 write.table(ps.t,  file="rarefied_ASV_table.txt")
-sum(as.numeric(ps.t[,1]))
+sum(as.numeric(ps.t[,1])) 
 
 # Deseq2 (https://joey711.github.io/phyloseq-extensions/DESeq2.html)
 library("DESeq2"); packageVersion("DESeq2")
@@ -238,7 +234,7 @@ otu_table<-diagvst
 ps.t<-cbind(otu_table,ps.deseq@tax_table)
 write.table(ps.t,  file="deseq_ASV_table.txt")
 
-#ADONIS for DESeq
+# ADONIS for DESeq
 library (vegan)
 Seq_Depth <- rowSums(seqtab.nochim)
 comm<- t(diagvst)
@@ -246,7 +242,7 @@ sink(file = "adonis.seq_depthforDESeq.doc")
 adonis(comm ~ Seq_Depth, permutations=5000)
 sink()
 
-#ADONIS for Rarefication
+# ADONIS for Rarefication
 comm<-ps.rarefied@otu_table@.Data
 sink(file = "adonis.seq_depth_forRarefication.doc")
 adonis(comm ~ Seq_Depth, permutations=5000)
