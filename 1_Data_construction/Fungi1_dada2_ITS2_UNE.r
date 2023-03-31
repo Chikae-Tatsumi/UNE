@@ -1,5 +1,6 @@
-#Getting ready
+# See https://benjjneb.github.io/dada2/ITS_workflow.html
 
+# Getting ready
 library(dada2)
 packageVersion("dada2")
 library(ShortRead)
@@ -153,7 +154,7 @@ ps <- merge_phyloseq(ps, dna)
 taxa_names(ps) <- paste0("ASV", seq(ntaxa(ps)))
 ps
 
-#To output OTU table
+#To output ASV table that still contain non-fungal reads
 otu_table.t<-t(ps@otu_table)
 ps.t<-cbind(otu_table.t,ps@tax_table)
 write.table(ps.t,  file="ASV_table_all.txt")
@@ -161,7 +162,7 @@ write.table(ps.t,  file="ASV_table_all.txt")
 # Remove 
 ps_removed = subset_taxa(ps,(Kingdom  == "k__Fungi" ))
                              
-#To output OTU table
+# To output ASV table
 otu_table.t<-t(ps_removed@otu_table)
 ps.t<-cbind(otu_table.t,ps_removed@tax_table)
 write.table(ps.t,  file="ASV_table.txt")
