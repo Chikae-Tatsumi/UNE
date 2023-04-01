@@ -1,7 +1,7 @@
 # DADA2 Pipeline Tutorial (1.8)
 # See https://benjjneb.github.io/dada2/tutorial_1_8.html
 
-#Getting ready
+# Getting ready
 library(dada2); packageVersion("dada2")
 library(ShortRead); packageVersion("ShortRead")
 library(phyloseq); packageVersion("phyloseq")
@@ -16,86 +16,27 @@ list.files()
 fnFs <- sort(list.files(getwd(), pattern="_R1_001.fastq", full.names = TRUE))
 fnRs <- sort(list.files(getwd(), pattern="_R2_001.fastq", full.names = TRUE))
 
-#Identify primers
-FWD <- "GTGCCAGCMGCCGCGGTAA"  ## 515f
-REV <- "GGACTACHVGGGTWTCTAAT"  ## 806r
+# Extract sample names, assuming filenames have format: SAMPLENAME_XXX.fastq
+sample.names <- sapply(strsplit(basename(fnFs), "_"), `[`, 1)
 
-allOrients <- function(primer) {
-    # Create all orientations of the input sequence
-    require(Biostrings)
-    dna <- DNAString(primer)  # The Biostrings works w/ DNAString objects rather than character vectors
-    orients <- c(Forward = dna, Complement = complement(dna), Reverse = reverse(dna), 
-        RevComp = reverseComplement(dna))
-    return(sapply(orients, toString))  # Convert back to character vector
-}
-FWD.orients <- allOrients(FWD)
-REV.orients <- allOrients(REV)
-FWD.orients
+# Inspect read quality profiles
+# visualizing the quality profiles of the forward reads and reverse reads (only sample 1 and 2):
+plotQualityProfile(fnFs[1:2])
+plotQualityProfile(fnRs[1:2])
 
-fnFs.filtN <- file.path(getwd(), "filtN", basename(fnFs)) # Put N-filterd files in filtN/ subdirectory
-fnRs.filtN <- file.path(getwd(), "filtN", basename(fnRs))
-filterAndTrim(fnFs, fnFs.filtN, fnRs, fnRs.filtN, maxN = 0, multithread = TRUE)
+# Filter and trim
+filtFs <- file.path(getwd(), "filtered", paste0(sample.names, "_F_filt.fastq.gz"))
+filtRs <- file.path(getwd(), "filtered", paste0(sample.names, "_R_filt.fastq.gz"))
+names(filtFs) <- sample.names
+names(filtRs) <- sample.names
 
-primerHits <- function(primer, fn) {
-    # Counts number of reads in which the primer is found
-    nhits <- vcountPattern(primer, sread(readFastq(fn)), fixed = FALSE)
-    return(sum(nhits > 0))
-}
-rbind(FWD.ForwardReads = sapply(FWD.orients, primerHits, fn = fnFs.filtN[[1]]), 
-    FWD.ReverseReads = sapply(FWD.orients, primerHits, fn = fnRs.filtN[[1]]), 
-    REV.ForwardReads = sapply(REV.orients, primerHits, fn = fnFs.filtN[[1]]), 
-    REV.ReverseReads = sapply(REV.orients, primerHits, fn = fnRs.filtN[[1]]))
-    
-# See https://github.com/benjjneb/dada2/issues/977
-
-#Remove Primers
-cutadapt <- "/Users/chikae/opt/miniconda3/envs/cutadaptenv/bin/cutadapt" 
-system2(cutadapt, args = "--version") # Run shell commands from R
-
-path.cut <- file.path(getwd(), "cutadapt")
-if(!dir.exists(path.cut)) dir.create(path.cut)
-fnFs.cut <- file.path(path.cut, basename(fnFs))
-fnRs.cut <- file.path(path.cut, basename(fnRs))
-
-FWD.RC <- dada2:::rc(FWD)
-REV.RC <- dada2:::rc(REV)
-# Trim FWD and the reverse-complement of REV off of R1 (forward reads)
-R1.flags <- paste("-g", FWD, "-a", REV.RC) 
-# Trim REV and the reverse-complement of FWD off of R2 (reverse reads)
-R2.flags <- paste("-G", REV, "-A", FWD.RC) 
-# Run Cutadapt
-for(i in seq_along(fnFs)) {
-  system2(cutadapt, args = c(R1.flags, R2.flags, "-n", 2, # -n 2 required to remove FWD and REV from reads
-                             "-o", fnFs.cut[i], "-p", fnRs.cut[i], # output files
-                             fnFs.filtN[i], fnRs.filtN[i])) # input files
-}
-
-rbind(FWD.ForwardReads = sapply(FWD.orients, primerHits, fn = fnFs.cut[[1]]), 
-    FWD.ReverseReads = sapply(FWD.orients, primerHits, fn = fnRs.cut[[1]]), 
-    REV.ForwardReads = sapply(REV.orients, primerHits, fn = fnFs.cut[[1]]), 
-    REV.ReverseReads = sapply(REV.orients, primerHits, fn = fnRs.cut[[1]]))
-    
-# Forward and reverse fastq filenames have the format:
-cutFs <- sort(list.files(path.cut, pattern = "_R1_001.fastq.gz", full.names = TRUE))
-cutRs <- sort(list.files(path.cut, pattern = "_R2_001.fastq.gz", full.names = TRUE))
-
-# Extract sample names, assuming filenames have format:
-get.sample.name <- function(fname) strsplit(basename(fname), "_L")[[1]][1]
-#get.sample.name <- function(fname) strsplit(basename(fname), "_")[[1]][1]
-sample.names <- unname(sapply(cutFs, get.sample.name))
-head(sample.names)
-
-#Inspect read quality profiles
-plotQualityProfile(cutFs[1:2])
-plotQualityProfile(cutRs[1:2])
-# See https://github.com/benjjneb/dada2/issues/1316
-
-#Filter and trim
-filtFs <- file.path(path.cut, "filtered", basename(cutFs))
-filtRs <- file.path(path.cut, "filtered", basename(cutRs))
-
-out <- filterAndTrim(cutFs, filtFs, cutRs, filtRs, maxN = 0, maxEE = c(2, 2), 
-    truncQ = 2, minLen = 50, rm.phix = TRUE, compress = TRUE, multithread = TRUE)  # on windows, set multithread = FALSE
+out <- filterAndTrim(fnFs, filtFs, fnRs, filtRs, 
+                     # truncLen=c(215,215),
+                     minLen = 100,
+                     maxN=0, maxEE=c(2,2), truncQ=2, rm.phix=TRUE, 
+                     compress=TRUE, multithread=TRUE, trimRight=c(32,31)) # On Windows set multithread=FALSE
+# R1 contains RC of 806r primer (20) + Linker (2) + Pad (10)
+# R2 contains RC of 515f primer (19) + Linker (2) + Pad (10)
 head(out)
 
 #Inspect read quality profiles
