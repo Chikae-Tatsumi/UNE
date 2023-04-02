@@ -9,13 +9,14 @@ setwd("~/R/Analysis/2_UNE/ITS/FungalTrait")
 fungaltrait <- read.csv(file="aggregated.fungaltrait.table.csv",header=T,row.names = 1)
 
 data <- cbind (fungaltrait, DESIGN)
-data$Urban <- factor (data$Urban, levels=c("Urban","Rural"))
 
 # ANOVA
 anova <- anova(lmer(scale(ECM)~ scale(DFB)*scale(DFE)+(1|Site),data=data))
 write.csv(anova, "ECM_rel.abund_anova.csv")
 
 # Visualize
+data$Urban <- factor (data$Urban, levels=c("Urban","Rural"))
+
 ggplot(data)+
 geom_point(aes(x=DFE, y=ECM, color=Urban),position=position_jitter( width=2, height=0))+ 
 geom_smooth(method="lm", aes(x=DFE, y=ECM, group=Urban, color=Urban))+  
