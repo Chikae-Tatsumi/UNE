@@ -1,6 +1,14 @@
 # Deseq2 (https://joey711.github.io/phyloseq-extensions/DESeq2.html)
 library("DESeq2"); packageVersion("DESeq2")
+
+# Import files
 design <- read.csv("~/R/Analysis/2_UNE/experimental_design.csv",header=T)
+setwd("~/R/Analysis/2_UNE/ITS")
+seqtab.nochim <- read.table("seqtabnochim.txt",header=T)
+seqtab.nochim <- as.matrix(seqtab.nochim)
+taxa <- read.table("taxonomy.txt",header=T)
+taxa <- as.matrix(taxa)
+
 rownames(design) <- rownames(seqtab.nochim)
 ps.deseq <- phyloseq(otu_table(seqtab.nochim, taxa_are_rows=FALSE), 
                          tax_table(taxa), sample_data(design))
