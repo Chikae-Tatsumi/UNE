@@ -5,6 +5,9 @@ rownames(design) <- rownames(seqtab.nochim)
 ps.deseq <- phyloseq(otu_table(seqtab.nochim, taxa_are_rows=FALSE), 
                          tax_table(taxa), sample_data(design))
                          
+# Remove non-fungal ASV 
+ps.deseq = subset_taxa(ps.deseq,(Kingdom  == "k__Fungi" ))
+                         
 # DESeq2 conversion and call (see https://bioconductor.org/packages/devel/bioc/vignettes/phyloseq/inst/doc/phyloseq-mixture-models.html)
 diagdds = phyloseq_to_deseq2(ps.deseq, ~DFB*DFE)
 gm_mean = function(x, na.rm=TRUE){
