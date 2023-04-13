@@ -18,6 +18,11 @@ ps.deseq <- merge_phyloseq(ps.deseq, dna)
 taxa_names(ps) <- paste0("ASV", seq(ntaxa(ps.deseq)))
 ps.deseq        
 
+# Remove non-bacterial ASVs
+ps.deseq = subset_taxa(ps.deseq,(Kingdom=="Bacteria"))
+ps.deseq = subset_taxa(ps.deseq,(Family  != "Mitochondria"|is.na(Family) &
+                             Order   != "Chloroplast"|is.na(Order))
+
 # DESeq2 conversion and call (see https://bioconductor.org/packages/devel/bioc/vignettes/phyloseq/inst/doc/phyloseq-mixture-models.html)
 diagdds = phyloseq_to_deseq2(ps.deseq, ~DFB*DFE)
 gm_mean = function(x, na.rm=TRUE){
