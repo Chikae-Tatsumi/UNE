@@ -1,5 +1,7 @@
 # Deseq2 (https://joey711.github.io/phyloseq-extensions/DESeq2.html)
 library("DESeq2"); packageVersion("DESeq2")
+library(phyloseq); packageVersion("phyloseq")
+library(Biostrings); packageVersion("Biostrings")
 
 # Import files
 design <- read.csv("~/R/Analysis/2_UNE/experimental_design.csv",header=T)
