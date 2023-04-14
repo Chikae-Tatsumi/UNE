@@ -37,16 +37,18 @@ if (data$Site[i]=="Harvard Forest 6") {data$Site[i]<-"HF06"} else
 if (data$Site[i]=="Hammond Woods") {data$Site[i]<-"HW07"} else 
 if (data$Site[i]=="Sutherland Woods") {data$Site[i]<-"SW08"}}
 
+rootka <- data
+  
 # Chikae's data
 setwd("~/R/Analysis/2_UNE")
 DESIGN <- read.csv("experimental_design.csv",header=T)
 METADATA <- read.csv("metadata.csv", header=T)
 setwd("~/R/Analysis/2_UNE/Others")
 
-bind <- cbind(METADATA, DESIGN)
+rootct <- cbind(METADATA, DESIGN)
 
-dataka <- cbind(data$RootDensity, data$DFB,data$DFE, data$Urban, data$Site)
-datact <- cbind(bind$Root_density, bind$DFB,bind$DFE, bind$Urban, bind$Site)
+dataka <- cbind(rootka$RootDensity, rootka$DFB,data$DFE, rootka$Urban, rootka$Site)
+datact <- cbind(rootct$Root_density, rootct$DFB, rootct$DFE, rootct$Urban, rootct$Site)
 
 data <- rbind(dataka, datact)
 colnames(data) <- c("RootDensity","DFB","DFE","Urban","Site")
@@ -67,14 +69,14 @@ standard_error <- function(x) sd(x) / sqrt(length(x))
 mean <- aggregate(root, by=list(data$Urban, data$DFE),FUN= "mean")
 se <- aggregate(root, by=list(data$Urban, data$DFE),FUN= standard_error)
 
-data <- cbind(mean[,1:2], mean$x, se$x)
-colnames(data) <- c("Urban","DFE","RootDensity","se")
+vdata <- cbind(mean[,1:2], mean$x, se$x)
+colnames(vdata) <- c("Urban","DFE","RootDensity","se")
 
-data$Urban <- factor (data$Urban, levels=c("Urban","Rural"))
+vdata$Urban <- factor (vdata$Urban, levels=c("Urban","Rural"))
 ylab=expression(paste("Root density (g ",
                       {cm^-3}, ")", sep=""))
 
-ggplot(data)+
+ggplot(vdata)+
 geom_line(aes(x=DFE, y=RootDensity, color=Urban, group=Urban))+
 geom_point(aes(x=DFE, y=RootDensity, color=Urban, group=Urban), 
 size=2,position=position_dodge(0.2))+
