@@ -33,4 +33,4 @@ theme_classic()+
 theme(text=element_text(size=14,color="black"),axis.text=element_text(size=12,color="black"))+
 labs (y="Soil ECM fungi (%)", x="Distance from edge (m)") 
 
-ggsave("ECM_rel.abund_UNE.png",width = 4, height = 3)
+ggsave("Plot_ECM_rel.abund.png",width = 4, height = 3)
