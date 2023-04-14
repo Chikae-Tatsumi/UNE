@@ -25,18 +25,18 @@ sink()
 Plant <- data.frame(cbind(data$DFB, data$DFE, data$ECM, data$Plant_pathogenic_capacity,"Plant"))
 Animal <- data.frame(cbind(data$DFB, data$DFE, data$ECM, data$Animal_parasite, "Animal"))
 
-Pathogen <- rbind(Plant, Animal)
-colnames(Pathogen) <- c("DFB","DFE","ECM","Pathogenic_capacity","Type")
+vdata <- rbind(Plant, Animal)
+colnames(vdata) <- c("DFB","DFE","ECM","Pathogenic_capacity","Type")
 
-Pathogen <- data.frame(Pathogen)
-Pathogen$Pathogenic_capacity <- as.numeric(Pathogen$Pathogenic_capacity)
-Pathogen$DFE <- as.numeric(Pathogen$DFE)
-Pathogen$ECM <- as.numeric(Pathogen$ECM)
+vdata <- data.frame(vdata)
+vdata$Pathogenic_capacity <- as.numeric(vdata$Pathogenic_capacity)
+vdata$DFE <- as.numeric(vdata$DFE)
+vdata$ECM <- as.numeric(vdata$ECM)
 
 # Visualize
-Pathogen$Type <- factor (Pathogen$Type, levels=c("Plant","Animal"))
+vdata$Type <- factor (vdata$Type, levels=c("Plant","Animal"))
 
-ggplot(Pathogen)+
+ggplot(vdata)+
 geom_point(aes(x=ECM, y=Pathogenic_capacity, shape= Type),color="black", position=position_jitter(width=2, height=0))+
 geom_smooth(method="lm", aes(x=ECM, y=Pathogenic_capacity, group=Type, linetype=Type),color="black")+
 scale_shape_manual(values = c(16,2))+ 
