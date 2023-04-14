@@ -44,4 +44,4 @@ theme_classic()+
 theme(text=element_text(size=14,color="black"),axis.text=element_text(size=14,color="black"))+
 labs (x="Soil ECM fungi (%)",y="Soil pathogenic fungi (%)",shape=NULL, linetype=NULL)  
 
-ggsave("ECM.vs.Pathogen_UNE.png",width = 4, height = 3)
+ggsave("Plot_ECM.vs.Pathogen.png",width = 4, height = 3)
