@@ -62,12 +62,12 @@ write.csv(anova, "Root_Density_anova.csv")
 
 # Visualize
 root <- data.frame(data$RootDensity)
-colnames(root) <- "RootDensity"
+
 standard_error <- function(x) sd(x) / sqrt(length(x)) 
 mean <- aggregate(root, by=list(data$Urban, data$DFE),FUN= "mean")
 se <- aggregate(root, by=list(data$Urban, data$DFE),FUN= standard_error)
 
-data <- cbind(mean[,1:2], mean$RootDensity, se$RootDensity)
+data <- cbind(mean[,1:2], mean$x, se$x)
 colnames(data) <- c("Urban","DFE","RootDensity","se")
 
 data$Urban <- factor (data$Urban, levels=c("Urban","Rural"))
