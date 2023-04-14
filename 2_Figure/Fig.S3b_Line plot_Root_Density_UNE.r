@@ -62,7 +62,7 @@ data <- na.omit(data)
 anova <- anova(lmer(scale(RootDensity)~ scale(DFB)*scale(DFE)+(1|Site),data=data))
 write.csv(anova, "Root_Density_anova.csv")
 
-# Visualize
+# Format data
 root <- data.frame(data$RootDensity)
 
 standard_error <- function(x) sd(x) / sqrt(length(x)) 
@@ -72,6 +72,7 @@ se <- aggregate(root, by=list(data$Urban, data$DFE),FUN= standard_error)
 vdata <- cbind(mean[,1:2], mean$x, se$x)
 colnames(vdata) <- c("Urban","DFE","RootDensity","se")
 
+# Visualize
 vdata$Urban <- factor (vdata$Urban, levels=c("Urban","Rural"))
 ylab=expression(paste("Root density (g ",
                       {cm^-3}, ")", sep=""))
