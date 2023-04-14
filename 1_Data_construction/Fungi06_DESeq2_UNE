@@ -61,7 +61,7 @@ ps.deseq = subset_taxa(ps.deseq,(Kingdom  == "k__Fungi" ))
 
 # Save
 ps<-cbind(ps.deseq@otu_table,ps.deseq@tax_table)
-write.table(ps,  file="deseq_ASV_table.txt")
+write.table(ps,  "deseq_ASV_table.txt")
 
 #ADONIS for DESeq
 library (vegan)
