@@ -13,7 +13,7 @@ data <- cbind (fungaltrait, DESIGN)
 anova <- anova(lmer(scale(ECM)~ scale(DFB)*scale(DFE)+(1|Site),data=data))
 write.csv(anova, "ECM_rel.abund_anova.csv")
 
-# Visualize
+# Format data
 standard_error <- function(x) sd(x) / sqrt(length(x)) 
 mean <- aggregate(fungaltrait, by=list(DESIGN$Urban,DESIGN$DFE),FUN= "mean")
 se <- aggregate(fungaltrait, by=list(DESIGN$Urban,DESIGN$DFE),FUN= standard_error)
@@ -21,6 +21,7 @@ se <- aggregate(fungaltrait, by=list(DESIGN$Urban,DESIGN$DFE),FUN= standard_erro
 vdata <- cbind(mean[,1:2], mean$ECM, se$ECM)
 colnames(vdata) <- c("Urban","DFE","ECM","se")
 
+# Visualize
 vdata$Urban <- factor (vdata$Urban, levels=c("Urban","Rural"))
 
 ggplot(vdata)+
