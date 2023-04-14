@@ -11,9 +11,10 @@ anova <- anova(lm(scale(Percent_Mycorrhizal_Colonization)~ scale(DFB),data=data)
 write.csv(anova, "Mycorrhizal_Colonization_anova.csv")
 
 # Visualize
-data$Urban <- factor (data$Urban, levels=c("Urban","Rural"))
+vdata <- data
+vdata$Urban <- factor (vdata$Urban, levels=c("Urban","Rural"))
 
-ggplot(data)+
+ggplot(vdata)+
 geom_boxplot(aes(x=Urban, y=Percent_Mycorrhizal_Colonization, fill = Urban))+
 scale_fill_manual(values = c("red","black"))+ 
 theme_classic()+
