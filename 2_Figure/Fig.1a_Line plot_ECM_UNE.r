@@ -18,12 +18,12 @@ standard_error <- function(x) sd(x) / sqrt(length(x))
 mean <- aggregate(fungaltrait, by=list(DESIGN$Urban,DESIGN$DFE),FUN= "mean")
 se <- aggregate(fungaltrait, by=list(DESIGN$Urban,DESIGN$DFE),FUN= standard_error)
 
-data <- cbind(mean[,1:2], mean$ECM, se$ECM)
-colnames(data) <- c("Urban","DFE","ECM","se")
+vdata <- cbind(mean[,1:2], mean$ECM, se$ECM)
+colnames(vdata) <- c("Urban","DFE","ECM","se")
 
-data$Urban <- factor (data$Urban, levels=c("Urban","Rural"))
+vdata$Urban <- factor (vdata$Urban, levels=c("Urban","Rural"))
 
-ggplot(data)+
+ggplot(vdata)+
 geom_line(aes(x=DFE, y=ECM, color=Urban, group=Urban))+
 geom_point(aes(x=DFE, y=ECM, color=Urban, group=Urban), 
 size=2,position=position_dodge(0.2))+
