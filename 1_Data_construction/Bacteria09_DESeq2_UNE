@@ -56,7 +56,7 @@ otu_table(ps.deseq) <- otu_table(diagvst, taxa_are_rows = TRUE)
 # Save
 otu_table<-diagvst
 ps.t<-cbind(otu_table,ps.deseq@tax_table)
-write.table(ps.t,  file="deseq_ASV_table.txt")
+write.table(ps.t,  "deseq_ASV_table.txt")
 
 # ADONIS for DESeq
 library (vegan)
