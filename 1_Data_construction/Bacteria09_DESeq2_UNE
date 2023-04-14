@@ -15,7 +15,7 @@ ps.deseq <- phyloseq(otu_table(seqtab.nochim, taxa_are_rows=FALSE),
 dna <- Biostrings::DNAStringSet(taxa_names(ps.deseq))
 names(dna) <- taxa_names(ps.deseq)
 ps.deseq <- merge_phyloseq(ps.deseq, dna)
-taxa_names(ps) <- paste0("ASV", seq(ntaxa(ps.deseq)))
+taxa_names(ps.deseq) <- paste0("ASV", seq(ntaxa(ps.deseq)))
 ps.deseq        
 
 # Remove non-bacterial ASVs
