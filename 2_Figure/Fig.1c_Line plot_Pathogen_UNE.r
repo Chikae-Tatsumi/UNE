@@ -29,18 +29,18 @@ standard_error <- function(x) sd(x) / sqrt(length(x))
 mean <- aggregate(pathogen.numeric, by=list(pathogen$Urban,pathogen$DFE,pathogen$Type),FUN= "mean")
 se <- aggregate(pathogen.numeric, by=list(pathogen$Urban,pathogen$DFE,pathogen$Type),FUN= standard_error)
 
-data <- cbind(mean[,1:3], mean$x, se$x)
-colnames(data) <- c("Urban","DFE","Type","pathogen","se")
+vdata <- cbind(mean[,1:3], mean$x, se$x)
+colnames(vdata) <- c("Urban","DFE","Type","pathogen","se")
 
-data$DFE <- as.numeric(data$DFE)
-data$Type_Urban <- paste(data$Type, data$Urban, sep="-")
+vdata$DFE <- as.numeric(vdata$DFE)
+vdata$Type_Urban <- paste(vdata$Type, vdata$Urban, sep="-")
 
 # Visualize
-data$Urban <- factor (data$Urban, levels=c("Urban","Rural"))
-data$Type <- factor (data$Type, levels=c("Plant","Animal"))
-data$Type_Urban <- factor (data$Type_Urban, levels=c("Plant-Urban","Plant-Rural","Animal-Urban","Animal-Rural"))
+vdata$Urban <- factor (vdata$Urban, levels=c("Urban","Rural"))
+vdata$Type <- factor (vdata$Type, levels=c("Plant","Animal"))
+vdata$Type_Urban <- factor (vdata$Type_Urban, levels=c("Plant-Urban","Plant-Rural","Animal-Urban","Animal-Rural"))
 
-ggplot(data)+
+ggplot(vdata)+
 geom_line(aes(x=DFE, y=pathogen, color=Urban, linetype=Type, group=Type_Urban))+
 geom_point(aes(x=DFE, y=pathogen, color=Urban, shape=Type, group=Type_Urban), 
 size=2,position=position_dodge(0.2))+
