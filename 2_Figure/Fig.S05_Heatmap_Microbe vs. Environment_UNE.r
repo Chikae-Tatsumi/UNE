@@ -38,7 +38,7 @@ colnames(func) <- c(
 "Saprotroph fungi","AM fungi", "ECM fungi")
 
 metadata <- cbind(METADATA$BA,METADATA$MR,METADATA$AR,METADATA$NR,METADATA$Soil.C,METADATA$Soil.CN,
-METADATA$Respiration,METADATA$leaf.C,METADATA$leaf.N,
+METADATA$Respiration,METADATA$leaf.C_copied,METADATA$leaf.N_copied,
 METADATA$Moist,METADATA$pH,METADATA$SOM,METADATA$Temp,
 METADATA$NH4,METADATA$NO3)
 colnames(metadata) <- c("Basal area", "N mineralization","Ammonification", "Nitrification","Soil C","Soil C:N", 
@@ -80,7 +80,7 @@ colnames(func) <- c(
 "Transitivity", "Complexity", "Edge density", "The number of Edges")
 
 metadata <- cbind(METADATA$BA,METADATA$MR,METADATA$AR,METADATA$NR,METADATA$Soil.C,METADATA$Soil.CN,
-METADATA$Respiration,METADATA$leaf.C4lmer,METADATA$leaf.N4lmer,
+METADATA$Respiration,METADATA$leaf.C,METADATA$leaf.N,
 METADATA$Moist,METADATA$pH,METADATA$SOM,METADATA$Temp,
 METADATA$NH4,METADATA$NO3)
 colnames(metadata) <- c("Basal area", "N mineralization","Ammonification", "Nitrification","Soil C","Soil C:N", 
