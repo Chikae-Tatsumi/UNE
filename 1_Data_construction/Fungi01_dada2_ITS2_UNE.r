@@ -172,4 +172,5 @@ ps.rarefied = rarefy_even_depth(ps_removed, rngseed=1, sample.size=min(sample_su
 otu_table.t<-t(ps.rarefied@otu_table)
 ps.t<-cbind(otu_table.t,ps.rarefied@tax_table)
 write.table(ps.t,  file="rarefied_ASV_table.txt")
+write.table(ps.rarefied@refseq, file="rarefied_seq.txt")
 sum(as.numeric(ps.t[,1]))
