@@ -110,7 +110,7 @@ write.table(ps.t,  file="ASV_table_withMitoChlo.txt")
 # Remove 
 ps_removed_1 = subset_taxa(ps,(Kingdom=="Bacteria"))
 ps_removed_2 = subset_taxa(ps_removed_1,(Family  != "Mitochondria"|is.na(Family) &
-                             Order   != "Chloroplast"|is.na(Order))
+                             Order   != "Chloroplast"|is.na(Order)))
                              
 # To output ASV table
 otu_table.t<-t(ps_removed_2@otu_table)
