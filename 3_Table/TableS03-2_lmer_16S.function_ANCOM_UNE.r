@@ -1,12 +1,12 @@
-# Copied from https://github.com/zoey-rw/NEFI_microbe/blob/master/16S/data_construction/1._create_tax_to_function_reference.r
-
 library (lme4)
 library (lmerTest)
 library(data.table)
 library(tidyverse)
 library (dplyr)
 
-### Assign_function_otu-tax ### 
+### Assign_function_otu-tax ###
+# Copied from https://github.com/zoey-rw/NEFI_microbe/blob/master/16S/data_construction/1._create_tax_to_function_reference.r
+
 # Import files
 setwd("~/R/Analysis/2_UNE")
 DESIGN <- read.csv("experimental_design.csv",header=T)
