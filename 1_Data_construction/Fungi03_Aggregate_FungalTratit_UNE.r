@@ -7,9 +7,8 @@ fungaltrait.table <- read.csv(file="rarefied_fungaltrait.table.csv",header=T,row
 ASV <- fungaltrait.table [,1:(ncol(fungaltrait.table)-31)] 
 guild <- fungaltrait.table [,(ncol(fungaltrait.table)-24):ncol(fungaltrait.table)] 
 percent <- ASV / mean(colSums(ASV)) *100
-guild$lifestyle <- paste(guild$primary_lifestyle, "_",guild$secondary_lifestyle)
 
-aggregated <- aggregate(percent, by=list(guild$lifestyle),FUN = sum,na.rm=F) 
+aggregated <- aggregate(percent, by=list(guild$primary_lifestyle),FUN = sum,na.rm=F) 
 row.names(aggregated)<-aggregated[,1]
 aggregated <- aggregated[,-1]
 aggregated <- data.frame(aggregated)
