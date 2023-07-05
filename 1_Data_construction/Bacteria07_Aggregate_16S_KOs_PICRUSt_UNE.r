@@ -14,7 +14,7 @@ fun$ID <- rownames(fun)
 
 # Xenobiotic degradation
 DATABASE.xeno.unique <- DATABASE.xeno[!duplicated(DATABASE.xeno$ID),]
-erged <- merge(DATABASE.xeno.unique, fun, by="ID", all.x=TRUE)
+merged <- merge(DATABASE.xeno.unique, fun, by="ID", all.x=TRUE)
 result <- na.omit(merged[,-1:-3])
 Xenobiotics_degradation.abundance <- colSums(result)
 result.t <- t(result)
@@ -22,7 +22,7 @@ Xenobiotics_degradation.diversity <- diversity(result.t, index="shannon", base=2
 result[(result>0)]<- 1
 Xenobiotics_degradation.count <- colSums(result)
 
-# Platn pathogen
+# Plant pathogen
 DATABASE.plant.unique <- DATABASE.plant[!duplicated(DATABASE.plant$ID),]
 merged <- merge(DATABASE.plant.unique, fun, by="ID", all.x=TRUE)
 result <- na.omit(merged[,-1:-2])
@@ -32,7 +32,7 @@ Plant_pathogen_interaction.diversity <- diversity(result.t, index="shannon", bas
 result[(result>0)]<- 1
 Plant_pathogen_interaction.count <- colSums(result)
 
-# Human desease infection
+# Human disease infection
 DATABASE.inf.unique <- DATABASE.inf[!duplicated(DATABASE.inf$ID),]
 merged <- merge(DATABASE.inf.unique, fun, by="ID", all.x=TRUE)
 result <- na.omit(merged[,-1:-3])
