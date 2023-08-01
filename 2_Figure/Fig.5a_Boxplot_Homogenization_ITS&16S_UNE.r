@@ -49,7 +49,7 @@ permdisp2021 <- betadisper(vegdist(subset, method="bray"), DESIGN.subset$Group4)
 # Multiple comparison between locations
 dist <- NULL
 dist <- c(permdisp2018$distance,permdisp2019$distance,permdisp2021$distance)
-data <- cbind (dist, Group4)
+data <- cbind (dist, DESIGN$Group4)
 colnames(data) <- c("dist", "Group4")
 data <- data.frame(data)
 data$dist <- as.numeric(data$dist)
