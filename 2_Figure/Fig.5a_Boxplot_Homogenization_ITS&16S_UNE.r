@@ -96,7 +96,7 @@ facet_wrap(~Edge)+
 geom_text(data,mapping=aes(label=resU),x=-Inf, y=Inf, hjust=-4.5,  vjust =9, size=5)+
 geom_text(data,mapping=aes(label=resR),x=-Inf, y=Inf, hjust=-11.5, vjust =9, size=5)
 
-ggsave("Boxplot_Homogenization_ITS&16S.png", height=4,width=4)
+ggsave("Boxplot_Homogenization_ITS&16S.tif", height=4,width=4,device='tiff', dpi=1200)
 
 # ANOVA
 anova <- anova(lm(dist~Urban*Edge, data=data))
