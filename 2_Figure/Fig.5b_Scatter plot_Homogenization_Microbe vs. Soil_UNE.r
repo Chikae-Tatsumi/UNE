@@ -124,4 +124,4 @@ labs (x="",y="microbial community",color="", shape="") +
 scale_x_continuous("Distance to centroids \nof soil properties")+
 scale_y_continuous("Distance to centroids \nof microbial communities")
 
-ggsave("ScatterPlot_Homogenization.png", height=4,width=5)
+ggsave("ScatterPlot_Homogenization.tif", height=4,width=5,device='tiff', dpi=1200)
