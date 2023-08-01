@@ -51,4 +51,4 @@ theme_classic()+
 theme(text=element_text(size=14,color="black"),axis.text=element_text(size=14,color="black"))+
 labs (y="Soil pathogenic fungi (%)", x="Distance from edge (m)", color=NULL, shape=NULL, linetype=NULL)  
 
-ggsave("Plot_Pathogen_rel.abund.png",width = 4, height = 3)
+ggsave("Plot_Pathogen_rel.abund.tif",width = 4, height = 3, device='tiff', dpi=1200)
