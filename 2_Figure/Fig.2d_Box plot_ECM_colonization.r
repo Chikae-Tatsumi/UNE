@@ -21,5 +21,5 @@ theme_classic()+
 theme(text=element_text(size=14,color="black"),axis.text=element_text(size=12,color="black"))+
 labs (y="ECM colonization (%)", x="", fill="") 
 
-ggsave("Plot_ECM_Colonization.png",width = 4, height = 3)
+ggsave("Plot_ECM_Colonization.tif",width = 4, height = 3, device='tiff', dpi=1200)
 
