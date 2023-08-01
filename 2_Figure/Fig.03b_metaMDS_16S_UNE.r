@@ -56,4 +56,4 @@ theme_classic()+
 theme(text=element_text(size=10,color="black"),axis.text=element_text(size=10,color="black"))
 
 # Save
-ggsave(file = "NMDS_16S.png",width =5, height =4)
+ggsave(file = "NMDS_16S.tif",width =5, height =4,device='tiff', dpi=1200)
